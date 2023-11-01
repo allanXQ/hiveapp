@@ -19,7 +19,7 @@ const { errorHOC } = require("@utils");
 //wallet routes
 router.post(
   "/transact/mpesa/deposit",
-  // verifyjwt,
+  verifyjwt,
   formValidate(depositSchema),
   errorHOC(mpesaDeposit)
 );
@@ -33,7 +33,7 @@ router.post(
 
 router.post(
   "/history/deposits",
-  // verifyjwt,
+  verifyjwt,
   formValidate(userInfoSchema),
   errorHOC(mpesaDepositHistory)
 );
