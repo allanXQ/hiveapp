@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const formValidate = require("../../middleware/validate");
-const { verifyjwt } = require("../../middleware/verifyjwt");
+const { verifyjwt, formValidate } = require("@middleware");
 const {
   updatePassword,
   login,
@@ -18,10 +17,9 @@ const {
   forgotPasswordSchema,
   resetPasswordSchema,
   userInfoSchema,
-} = require("../../yupschemas");
+} = require("@yupschemas");
 
-const errorHOC = require("../../utils/errorHOC");
-const { isLoggedIn } = require("../../controllers/auth/isLoggedIn");
+const { errorHOC } = require("@utils");
 
 // routes
 router.post("/register", formValidate(regSchema), errorHOC(register));
@@ -31,7 +29,6 @@ router.post(
   formValidate(resetPasswordSchema),
   errorHOC(resetPassword)
 );
-router.get("/verify", verifyjwt, errorHOC(isLoggedIn));
 router.post("/refresh-token", errorHOC(refreshToken));
 router.post("/logout", formValidate(userInfoSchema), errorHOC(logout));
 

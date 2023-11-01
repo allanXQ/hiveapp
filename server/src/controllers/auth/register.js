@@ -1,8 +1,8 @@
 const crypto = require("crypto");
 const id = crypto.randomBytes(6).toString("hex");
-const User = require("@models/users");
+const { users } = require("@models");
 const bcrypt = require("bcrypt");
-const Messages = require("@utils/messages");
+const { messages } = require("@utils");
 
 const register = async (req, res) => {
   const {
@@ -13,20 +13,14 @@ const register = async (req, res) => {
     password: plainPassword,
   } = req.body;
 
-  const getUser = await User.findOne({ username });
-  const getPhone = await User.findOne({ phone });
-  const getEmail = await User.findOne({ email });
+  const getUser = await users.findOne({
+    $or: [{ username: username }, { email: email }, { phone: phone }],
+  });
   if (getUser) {
-    return res.status(400).json({ message: Messages.invalidUsername });
-  }
-  if (getEmail) {
-    return res.status(400).json({ message: Messages.invalidEmail });
-  }
-  if (getPhone) {
-    return res.status(400).json({ message: Messages.invalidPhoneNumber });
+    return res.status(400).json({ message: messages.invalidUsername });
   }
   const password = await bcrypt.hash(plainPassword, 10);
-  await User.create({
+  await users.create({
     userId: id,
     username,
     email,
@@ -35,13 +29,7 @@ const register = async (req, res) => {
     password,
     authMethod: "local",
   });
-  //redirect to login page with message
-  const message = Messages.userCreatedSuccessfully;
-  return res.redirect(
-    301,
-    `${process.env.CLIENT_URL}/login?message=${encodeURIComponent(message)}`
-  );
-  // return res.status(200).json({ message: Messages.userCreatedSuccessfully });
+  return res.status(200).json({ message: messages.userCreatedSuccessfully });
 };
 
 module.exports = { register };
