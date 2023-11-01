@@ -1,6 +1,6 @@
 const yup = require("yup");
 const { messages } = require("@utils");
-const { WalletConfig } = require("@config");
+const { walletConfig } = require("@config");
 
 const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
@@ -54,8 +54,8 @@ const updatePasswordSchema = yup.object().shape({
 const depositSchema = yup.object().shape({
   amount: yup
     .number()
-    .lessThan(WalletConfig.maxDeposit)
-    .moreThan(WalletConfig.minDeposit)
+    .lessThan(walletConfig.maxDeposit)
+    .moreThan(walletConfig.minDeposit)
     .required(),
   phone: yup
     .string()
@@ -66,8 +66,8 @@ const depositSchema = yup.object().shape({
 const withdrawalSchema = yup.object().shape({
   amount: yup
     .number()
-    .lessThan(WalletConfig.maxWithdrawal)
-    .moreThan(WalletConfig.minWithdrawal)
+    .lessThan(walletConfig.maxWithdrawal)
+    .moreThan(walletConfig.minWithdrawal)
     .required(),
   phone: yup
     .string()

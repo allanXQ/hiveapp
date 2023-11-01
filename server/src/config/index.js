@@ -30,13 +30,10 @@ const walletConfig = {
 };
 
 module.exports = {
+  DBConn,
+  allowedOrigins,
   roles,
   withdrawalModes,
   withdrawalStatus,
   walletConfig,
-};
-
-module.exports = {
-  DBConn,
-  allowedOrigins,
 };
