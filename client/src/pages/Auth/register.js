@@ -15,9 +15,10 @@ const Register = () => {
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/dashboard");
-    } else if (isRegistered) {
-      navigate("/login");
     }
+    // else if (isRegistered) {
+    //   navigate("/login");
+    // }
   }, [isLoggedIn, navigate]);
   const sublink = {
     text: "Already have an account? ",

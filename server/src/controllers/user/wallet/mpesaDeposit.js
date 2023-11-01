@@ -1,27 +1,27 @@
 const { default: axios } = require("axios");
-const { WalletConfig } = require("@config");
-const Messages = require("@utils/messages");
-const { User } = require("@models");
+const { walletConfig } = require("@config");
+const { messages } = require("@utils");
+const { users } = require("@models");
 
 const mpesaDeposit = async (req, res) => {
   const { phone, amount } = req.body;
-  const user = await User.findOne({ phone });
+  const user = await users.findOne({ phone });
   if (!user) {
     return res.status(400).json({
-      message: Messages.invalidPhoneNumber,
+      message: messages.invalidPhoneNumber,
     });
   }
 
-  const { minDeposit, maxDeposit } = WalletConfig;
+  const { minDeposit, maxDeposit } = walletConfig;
   if (parseInt(amount) < minDeposit) {
     return res.status(400).json({
-      message: Messages.minDeposit + " " + minDeposit,
+      message: messages.minDeposit + " " + minDeposit,
     });
   }
 
   if (parseInt(amount) > maxDeposit) {
     return res.status(400).json({
-      message: Messages.maxDeposit + " " + maxDeposit,
+      message: messages.maxDeposit + " " + maxDeposit,
     });
   }
   const url = " https://tinypesa.com/api/v1/express/initialize";
@@ -40,13 +40,13 @@ const mpesaDeposit = async (req, res) => {
     .then((response) => {
       if (response.status == 200) {
         res.status(200).json({
-          message: Messages.stkPushSent,
+          message: messages.stkPushSent,
         });
       }
     })
     .catch((error) => {
       console.log(error);
-      res.status(500).json({ message: Messages.serverError });
+      res.status(500).json({ message: messages.serverError });
     });
 };
 
