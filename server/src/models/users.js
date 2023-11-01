@@ -1,16 +1,10 @@
 const mongoose = require("mongoose");
 
-const { roles } = require("../config");
+const { roles } = require("@config");
 
 const isLocalAuth = function () {
   return this.authMethod === "local";
 };
-
-const Portfolio = mongoose.Schema({
-  ownerId: { type: String, required: true },
-  assetName: { type: String, required: true },
-  amount: { type: Number, required: true },
-});
 
 const Referrals = mongoose.Schema({
   userId: { type: String, required: true },
@@ -18,7 +12,7 @@ const Referrals = mongoose.Schema({
 });
 
 //add kyc
-const Users = mongoose.Schema(
+const users = mongoose.Schema(
   {
     userId: { type: String },
     role: { type: String, default: roles.user },
@@ -39,7 +33,6 @@ const Users = mongoose.Schema(
     refreshToken: { type: String },
     passwordResetToken: { type: String },
     password: { type: String, required: isLocalAuth },
-    portfolio: [Portfolio],
     referrals: [Referrals],
   },
   {
@@ -47,6 +40,6 @@ const Users = mongoose.Schema(
   }
 );
 
-const model = mongoose.model("Users", Users);
+const model = mongoose.model("users", users);
 
 module.exports = model;

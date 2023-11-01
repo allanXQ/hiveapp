@@ -1,5 +1,5 @@
 const errorHandler = require("./errorHandler");
-const formValidate = require("./formValidate");
+const formValidate = require("./validate");
 const verifyjwt = require("./verifyjwt");
 
 module.exports = {

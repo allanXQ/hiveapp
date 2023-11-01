@@ -1,13 +1,13 @@
 require("dotenv").config();
-const User = require("@models/users");
+const { users } = require("@models");
 const jwt = require("jsonwebtoken");
 const nodeoutlook = require("nodejs-nodemailer-outlook");
-const Messages = require("@utils/messages");
+const { Messages } = require("@utils");
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
-  const findUser = await User.findOne({ email });
+  const findUser = await users.findOne({ email });
   if (!findUser) {
     return res.status(400).json({ message: Messages.userNotFound });
   }

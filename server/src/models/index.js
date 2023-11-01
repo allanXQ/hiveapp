@@ -1,7 +1,7 @@
-const User = require("./users");
+const users = require("./users");
 const mpesaDeposits = require("./mpesaDeposits");
 
 module.exports = {
-  User,
+  users,
   mpesaDeposits,
 };

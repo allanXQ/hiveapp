@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MpesaDeposits = new mongoose.Schema(
+const mpesaDeposits = new mongoose.Schema(
   {
     userId: { type: String, required: true },
     mpesaRef: { type: String, required: true, unique: true },
@@ -12,6 +12,6 @@ const MpesaDeposits = new mongoose.Schema(
   }
 );
 
-const model = mongoose.model("MpesaDeposits", MpesaDeposits);
+const model = mongoose.model("mpesaDeposits", mpesaDeposits);
 
 module.exports = model;

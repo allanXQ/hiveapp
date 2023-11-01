@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const formValidate = require("../../middleware/validate");
-const { verifyjwt } = require("../../middleware/verifyjwt");
+const { verifyjwt, formValidate } = require("@middleware");
 const {
   userInfo,
   mpesaWithdraw,

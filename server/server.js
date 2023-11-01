@@ -20,7 +20,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1/tinypesa/", require("@routes"));
+app.use("/api/v1/user/", require("@routes/user"));
 
 app.use(errorHandler);
 
