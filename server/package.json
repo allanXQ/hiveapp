@@ -1,0 +1,36 @@
+{
+  "name": "tinywebhook",
+  "version": "1.0.0",
+  "description": "Master webhook for all projects using tinypesa",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Allan Juma",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "module-alias": "^2.2.3",
+    "mongoose": "^7.4.1",
+    "nodemon": "^3.0.1",
+    "winston": "^3.10.0"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@config": "./src/config",
+    "@controllers": "./src/controllers",
+    "@middleware": "./src/middleware",
+    "@models": "./src/models",
+    "@routes": "./src/routes",
+    "@services": "./src/services",
+    "@validations": "./src/validations",
+    "@utils": "./src/utils",
+    "@yupschemas": "./src/yupschemas"
+  }
+}
