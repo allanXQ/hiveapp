@@ -63,8 +63,8 @@ const Dashboard = React.memo(() => {
         ReferenceNumber: deposit.mpesaRef,
         AccountNumber: deposit.phone,
         Amount: `KSH ${deposit.amount}`,
-        Status: "success",
-        Date: deposit.created,
+        Status: deposit.status,
+        Date: deposit.createdAt,
       };
     });
   const cardStyle = {

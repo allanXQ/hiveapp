@@ -5,13 +5,10 @@ const { messages } = require("@utils");
 const tinypesaWebhook = async (req, res) => {
   let session;
   try {
-    const stkCallback = req.body.Body.stkCallback;
-    const { CallbackMetadata } = stkCallback;
-    const { Msisdn, Amount, ResultDesc, ResultCode } = stkCallback;
+    const { Msisdn, Amount, ResultDesc, ResultCode, MpesaReceiptNumber } =
+      req.body;
 
-    const [MpesaReceiptNumber] = CallbackMetadata.Item.map(
-      (item) => item["Value"]
-    );
+    console.log(req.body);
 
     session = await mongoose.startSession();
     session.startTransaction();
@@ -34,6 +31,9 @@ const tinypesaWebhook = async (req, res) => {
           phone: Msisdn,
           amount: Amount,
           mpesaRef: MpesaReceiptNumber,
+          resultCode: ResultCode,
+          resultDesc: ResultDesc,
+          status: ResultCode == 0 ? "Success" : "Failed",
         },
       ],
       session

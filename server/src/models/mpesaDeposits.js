@@ -6,6 +6,9 @@ const mpesaDeposits = new mongoose.Schema(
     mpesaRef: { type: String, required: true, unique: true },
     phone: { type: Number, required: true },
     amount: { type: Number, required: true },
+    resultCode: { type: Number, required: true },
+    resultDesc: { type: String, required: true },
+    status: { type: String, required: true },
   },
   {
     timestamps: true,

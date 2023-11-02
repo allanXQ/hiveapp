@@ -31,6 +31,7 @@ const mpesaDeposit = async (req, res) => {
     data: {
       amount: amount,
       msisdn: phone,
+      account_no: "hive",
     },
     headers: {
       Apikey: process.env.TINYPESA_KEY,
