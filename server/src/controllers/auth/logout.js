@@ -1,10 +1,10 @@
-const User = require("@models/users");
-const Messages = require("@utils/messages");
-const { clearTokens } = require("@utils/cookie");
+const { users } = require("@models");
+const { messages } = require("@utils");
+const { clearTokens } = require("@utils");
 
 const logout = async (req, res) => {
   const { userId } = req.body;
-  const user = await User.findOneAndUpdate(
+  const user = await users.findOneAndUpdate(
     { userId },
     {
       $set: { refreshToken: null },
@@ -13,10 +13,10 @@ const logout = async (req, res) => {
   );
   if (!user) {
     clearTokens(res);
-    return res.status(401).json({ message: Messages.invalidToken });
+    return res.status(401).json({ message: messages.invalidToken });
   }
   clearTokens(res);
-  return res.status(200).json({ message: Messages.logOutSuccess });
+  return res.status(200).json({ message: messages.logOutSuccess });
 };
 
 module.exports = { logout };

@@ -1,6 +1,4 @@
-const { clearTokens } = require("../utils/cookie");
-const logger = require("../utils/logger");
-const Messages = require("../utils/messages");
+const { clearTokens, messages, logger } = require("@utils");
 
 // General error handling middleware
 const errorHandler = (error, req, res, next) => {
@@ -23,7 +21,7 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(401).json({ message: Messages.tokenExpired });
+      return res.status(401).json({ message: messages.tokenExpired });
 
     case "RefreshTokenExpiredError":
       logger.error(error.message, {
@@ -31,14 +29,14 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(401).json({ message: Messages.refreshTokenExpired });
+      return res.status(401).json({ message: messages.refreshTokenExpired });
     default:
       logger.error(error.message, {
         metadata: error,
         stack: error.stack,
         name: error.name,
       });
-      return res.status(500).json({ message: Messages.serverError });
+      return res.status(500).json({ message: messages.serverError });
   }
 };
 

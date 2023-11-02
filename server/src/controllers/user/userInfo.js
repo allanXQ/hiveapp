@@ -1,9 +1,9 @@
-const User = require("@models/users");
-const Messages = require("@utils/messages");
+const { users } = require("@models");
+const { messages } = require("@utils");
 
 const userInfo = async (req, res) => {
   const { userId } = req.body;
-  const userData = await User.aggregate([
+  const userData = await users.aggregate([
     {
       $match: {
         userId,
@@ -35,7 +35,7 @@ const userInfo = async (req, res) => {
     },
   ]);
   return res.status(200).json({
-    message: Messages.requestSuccessful,
+    message: messages.requestSuccessful,
     payload: {
       user: userData[0],
     },

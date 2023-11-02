@@ -1,16 +1,16 @@
-const { MpesaDeposits } = require("@models");
-const Messages = require("@utils/messages");
+const { mpesaDeposits } = require("@models");
+const { messages } = require("@utils");
 
 const mpesaDepositHistory = async (req, res) => {
   const { userId } = req.body;
   if (!userId) {
-    return res.status(400).json({ message: Messages.invalidRequest });
+    return res.status(400).json({ message: messages.invalidRequest });
   }
 
-  const depositHistory = await MpesaDeposits.find({ userId });
+  const depositHistory = await mpesaDeposits.find({ userId });
   return res
     .status(200)
-    .json({ message: Messages.requestSuccessful, payload: depositHistory });
+    .json({ message: messages.requestSuccessful, payload: depositHistory });
 };
 
 module.exports = { mpesaDepositHistory };

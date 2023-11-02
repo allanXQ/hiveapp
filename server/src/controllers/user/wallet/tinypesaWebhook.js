@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose");
-const { users, mpesaDeposits: Deposits } = require("@models");
+const { users, mpesaDeposits } = require("@models");
 const { messages } = require("@utils");
 
 const tinypesaWebhook = async (req, res) => {
@@ -27,7 +27,7 @@ const tinypesaWebhook = async (req, res) => {
       return res.status(400).json({ message: messages.depositFailed });
     }
 
-    await Deposits.create(
+    await mpesaDeposits.create(
       [
         {
           userId: userUpdate.userId,

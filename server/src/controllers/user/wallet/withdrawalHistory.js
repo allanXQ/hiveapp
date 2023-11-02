@@ -1,13 +1,13 @@
-const { Withdrawals } = require("@models");
-const Messages = require("@utils/messages");
+const { withdrawals } = require("@models");
+const { messages } = require("@utils");
 
 const withdrawalHistory = async (req, res) => {
   const { userId } = req.body;
-  const getWithdrawals = await Withdrawals.find({ userId });
+  const getWithdrawals = await withdrawals.find({ userId });
 
   return res
     .status(200)
-    .json({ message: Messages.requestSuccessful, payload: getWithdrawals });
+    .json({ message: messages.requestSuccessful, payload: getWithdrawals });
 };
 
 module.exports = { withdrawalHistory };

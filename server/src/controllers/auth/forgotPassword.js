@@ -2,14 +2,14 @@ require("dotenv").config();
 const { users } = require("@models");
 const jwt = require("jsonwebtoken");
 const nodeoutlook = require("nodejs-nodemailer-outlook");
-const { Messages } = require("@utils");
+const { messages } = require("@utils");
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
   const findUser = await users.findOne({ email });
   if (!findUser) {
-    return res.status(400).json({ message: Messages.userNotFound });
+    return res.status(400).json({ message: messages.userNotFound });
   }
   const secret = process.env.JWT_SECRET;
   const payload = {
@@ -43,11 +43,11 @@ const forgotPassword = async (req, res) => {
     //text: 'This is text version!',
     onError: (e) => {
       console.log(e);
-      return res.status(400).json({ message: Messages.requestFailed });
+      return res.status(400).json({ message: messages.requestFailed });
     },
     onSuccess: (i) => {
       return res.status(200).json({
-        message: Messages.passwordResetEmail,
+        message: messages.passwordResetEmail,
       });
     },
   });

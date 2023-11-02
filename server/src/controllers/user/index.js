@@ -9,7 +9,7 @@ const {
   logout,
   googleOAuth,
 } = require("../auth");
-const userInfo = require("../user/userInfo");
+const userInfo = require("./userInfo");
 
 //wallet controllers
 const {
