@@ -3,6 +3,7 @@ const messages = require("./messages");
 const logger = require("./logger");
 const errorHOC = require("./errorHOC");
 const getGoogleAuthTokens = require("./getGoogleAuthTokens");
+const { clearTokens, generateTokens, setCookies } = require("./cookie");
 
 module.exports = {
   messages,
@@ -10,4 +11,7 @@ module.exports = {
   errorHOC,
   getGoogleAuthTokens,
   createId,
+  clearTokens,
+  generateTokens,
+  setCookies,
 };
