@@ -107,27 +107,6 @@ function ResponsiveDrawer(props) {
       ],
     },
     {
-      name: "Trade",
-      icon: <ShowChart sx={iconColor} />,
-      submenu: [
-        {
-          name: "Spot",
-          icon: <AccountBalance sx={iconColor} />,
-          path: "/trade/spot",
-        },
-        {
-          name: "P2P",
-          icon: <Redeem sx={iconColor} />,
-          path: "/trade/p2p",
-        },
-        {
-          name: "Swap",
-          icon: <Redeem sx={iconColor} />,
-          path: "/trade/swap",
-        },
-      ],
-    },
-    {
       name: "Loan Calculator",
       icon: <Calculate sx={iconColor} />,
       path: "/loan-calculator",
@@ -151,16 +130,6 @@ function ResponsiveDrawer(props) {
           name: "Withdrawals",
           icon: <Receipt sx={iconColor} />,
           path: "/history/withdrawals",
-        },
-        {
-          name: "Spot Trades",
-          icon: <RequestPage sx={iconColor} />,
-          path: "/history/spot",
-        },
-        {
-          name: "P2P Trades",
-          icon: <Receipt sx={iconColor} />,
-          path: "/history/p2p",
         },
       ],
     },

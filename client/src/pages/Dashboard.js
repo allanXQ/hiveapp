@@ -11,22 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import useAssetsData from "Hooks/useAssets";
+import useUserData from "Hooks/useUserData";
 import { MuiButton } from "components/common/Button";
 import MUIDataGrid from "components/common/Datagrid";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-const ActionButton = ({ asset }) => {
-  const navigate = useNavigate();
-
-  return (
-    <MuiButton
-      variant="contained"
-      onClick={() => navigate(`/trade/spot/${asset}`)}
-      content="Trade"
-    />
-  );
-};
 
 const stats = [
   {
@@ -52,60 +41,32 @@ const stats = [
 ];
 
 const columns = [
-  {
-    field: "Asset",
-    headerName: "Asset",
-    smallScreenScreen: true,
-    width: 200,
-  },
-  {
-    field: "Symbol",
-    headerName: "Symbol",
-    smallScreenScreen: false,
-    width: 200,
-  },
-  {
-    field: "Amount",
-    headerName: "Amount",
-    smallScreenScreen: false,
-    width: 200,
-  },
-  {
-    field: "24hrChange",
-    headerName: "24hr Change",
-    smallScreenScreen: false,
-    width: 200,
-  },
-  {
-    field: "Price",
-    headerName: "Price",
-    smallScreenScreen: true,
-    width: 200,
-  },
-  {
-    field: "action",
-    headerName: "Action",
-    width: 100,
-    renderCell: (params) => {
-      return <ActionButton asset={params.row.Asset} />;
-    },
-  },
+  { field: "Gateway", headerName: "Gateway", width: 200 },
+  { field: "ReferenceNumber", headerName: "Reference Number", width: 200 },
+  { field: "AccountNumber", headerName: "Accout Number", width: 200 },
+  { field: "Amount", headerName: "Amount", width: 200 },
+  { field: "Status", headerName: "Status", width: 150 },
+  { field: "Date", headerName: "Date", width: 200 },
 ];
 
 const overviewWidth = `calc(100vw - 200px)`;
 
 const Dashboard = React.memo(() => {
-  const { assets } = useAssetsData();
-  const Assets = assets.map((asset) => {
-    return {
-      id: asset.assetId,
-      Asset: asset.assetName,
-      Symbol: asset.symbol,
-      Amount: asset.amount,
-      "24hrChange": asset.priceChange,
-      Price: asset.lastPrice,
-    };
-  });
+  const userData = useUserData();
+
+  const rows =
+    Array.isArray(userData?.deposits) &&
+    userData.deposits.map((deposit) => {
+      return {
+        id: deposit._id,
+        Gateway: "Mpesa",
+        ReferenceNumber: deposit.mpesaRef,
+        AccountNumber: deposit.phone,
+        Amount: `KSH ${deposit.amount}`,
+        Status: "success",
+        Date: deposit.created,
+      };
+    });
   const cardStyle = {
     display: "flex",
     flexDirection: "column",
@@ -250,7 +211,7 @@ const Dashboard = React.memo(() => {
                 content="View All"
               />
             </Box>
-            <MUIDataGrid columns={columns} rows={Assets} height={370} />
+            <MUIDataGrid columns={columns} rows={rows} height={370} />
           </CardContent>
         </Card>
       </Grid>
