@@ -2,7 +2,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { users } = require("@models");
-const messages = require("@utils");
+const { messages } = require("@utils");
 const { setCookies, generateTokens } = require("@utils");
 
 const login = async (req, res) => {
