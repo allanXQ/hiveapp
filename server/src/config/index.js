@@ -1,6 +1,6 @@
 const DBConn = require("./dbConn");
 
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["https://hive-client.vercel.app"];
 
 const roles = {
   admin: "a048f5",
