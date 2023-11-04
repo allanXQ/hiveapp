@@ -30,7 +30,7 @@ const tinypesaWebhook = async (req, res) => {
           userId: userUpdate.userId,
           phone: Msisdn,
           amount: Amount,
-          mpesaRef: MpesaReceiptNumber,
+          mpesaRef: MpesaReceiptNumber || "none",
           resultCode: ResultCode,
           resultDesc: ResultDesc,
           status: ResultCode == 0 ? "Success" : "Failed",
