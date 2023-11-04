@@ -9,7 +9,7 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(400).json({ message: error.message });
+      return res.status(400).json({ message: error.message, type: error.name });
     case "TokenExpiredError":
       //check if route is logout then clear cookies
       const { path } = req.route;
