@@ -8,26 +8,29 @@ const tinypesaWebhook = async (req, res) => {
     const { Msisdn, Amount, ResultDesc, ResultCode, MpesaReceiptNumber } =
       req.body;
 
-    console.log(req.body);
-
     session = await mongoose.startSession();
     session.startTransaction();
 
-    const userUpdate = await users.findOneAndUpdate(
-      { phone: Msisdn },
-      {
-        $inc: { accountBalance: Amount },
-      },
-      session
-    );
-    if (!userUpdate) {
-      return res.status(400).json({ message: messages.depositFailed });
+    const user = await users.findOne({ phone: Msisdn });
+    if (ResultCode === 0) {
+      const userUpdate = await users.updateOne(
+        { phone: Msisdn },
+        {
+          $inc: { accountBalance: Amount },
+        },
+        session
+      );
+      if (userUpdate.matchedCount === 0) {
+        return res.status(404).json({ message: messages.depositFailed });
+      } else if (userUpdate.modifiedCount === 0) {
+        return res.status(400).json({ message: messages.depositFailed });
+      }
     }
 
     await mpesaDeposits.create(
       [
         {
-          userId: userUpdate.userId,
+          userId: user.userId,
           phone: Msisdn,
           amount: Amount,
           mpesaRef: MpesaReceiptNumber || "none",
@@ -38,7 +41,6 @@ const tinypesaWebhook = async (req, res) => {
       ],
       session
     );
-
     await session.commitTransaction();
     session && session.endSession();
 

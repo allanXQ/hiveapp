@@ -19,7 +19,7 @@ const withdrawalStatus = {
 };
 
 const walletConfig = {
-  minDeposit: 10,
+  minDeposit: 9,
   maxDeposit: 100000,
   minWithdrawal: 10,
   maxWithdrawal: 100000,
